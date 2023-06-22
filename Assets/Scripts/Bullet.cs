@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public GameObject missShoot;
-    // public Transform spawnPoint;
+    public GameObject bloodSplash;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,20 +20,23 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        ContactPoint contact = collision.contacts[0];
+        Vector3 collisionPosition = contact.point;
+        Quaternion collisionRotation = Quaternion.LookRotation(contact.normal);
+        Quaternion bloodRotation = Quaternion.FromToRotation(Vector3.forward, contact.normal);
         
-        if(!collision.gameObject.CompareTag("Enemy"))
+        if(!collision.gameObject.CompareTag("Enemy") && !collision.gameObject.CompareTag("Player"))
         {
-            ContactPoint contact = collision.contacts[0];
-            Vector3 collisionPosition = contact.point;
-            Quaternion collisionRotation = Quaternion.LookRotation(contact.normal);
-
             //FxMissShoot.transform.position = collisionPosition + collision.relativeVelocity.normalized * 0.1f;
-
             GameObject FxMissShoot = Instantiate(missShoot, collisionPosition, collisionRotation);
             Destroy(FxMissShoot,2); 
         }
-       
+        else
+        {
+            GameObject Blood = Instantiate(bloodSplash, collisionPosition, bloodRotation);
+            Destroy(Blood, 1);
 
+        }
         Destroy(gameObject);
     }
 }

@@ -395,5 +395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34067ea85d081db4fa065c89fc6cd9a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missShoot: {fileID: 3998685078748407299, guid: 11b7eea255d83724fbe4ff7a943ea3c3,
+  missShoot: {fileID: 6054983635811274703, guid: b6f78680c916e2a4b903b8ee3d0c1cc4,
+    type: 3}
+  bloodSplash: {fileID: 2485411965518777670, guid: 8f422f7b6093ca54cbff434321e7f437,
     type: 3}

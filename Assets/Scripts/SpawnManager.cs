@@ -11,6 +11,7 @@ public class SpawnManager : MonoBehaviour
     private int spawnCount;
     public int maxSpawn;
     private float spawnPosY = 2f;
+    // private TakeDamage enemy;
 
 
     // Start is called before the first frame update
@@ -30,12 +31,22 @@ public class SpawnManager : MonoBehaviour
         float spawnPosX = Random.Range(-spawnRange, spawnRange);
         float spawnPosZ = Random.Range(-spawnRange, spawnRange);
         Vector3 randomPos = new Vector3(spawnPosX, spawnPosY, spawnPosZ);
-        //Instantiate(enemyPrefab, new Vector3( 0, 2, 4 ) + randomPos, enemyPrefab.transform.rotation);
         Instantiate(enemyPrefab, transform.position + randomPos, enemyPrefab.transform.rotation);
-        spawnCount++;
-
-       
+        spawnCount++;      
     }
+     public void EnemyDestroyed()
+    {
+        spawnCount--;
+
+        // Cek apakah jumlah musuh kurang dari maksimum
+        if (spawnCount < maxSpawn)
+        {
+            // Menunda waktu sebelum melakukan spawn musuh berikutnya
+            //StartCoroutine(SpawnDelay());
+            InvokeRepeating("GenerateSpawnPosition", startDelay, spawnInterval);
+        }
+    }
+  
 
 
     // Update is called once per frame
